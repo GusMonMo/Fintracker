@@ -1,43 +1,60 @@
 import styles from './styles.module.scss'
-import { useLogin } from '../../hooks/loginHook'
 import { useState, type ChangeEvent, type FormEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
+import type { User } from '../../types/loginTypes'
+import { Link, useNavigate } from 'react-router-dom'
 
-type FormatErrors = {
-    email?: string
-    password?: string
+type FormData = {
+    email: string
+    password: string
 }
 
 export default function LoginPage(){
-    const {loginData, setLoginData} = useLogin()
-    const [formatErrors, setFormatErrors] = useState<FormatErrors>({})
+    const [formData, setFormData] = useState<FormData>({email: '', password: ''})
+    const [formatErrors, setFormatErrors] = useState<Partial<FormData>>({})
     const [noUser, setNoUser] = useState<string>('')
     const navigate = useNavigate()
-
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = event.target
-        setLoginData((prev) => ({
+        setFormData((prev) => ({
             ...prev,
             [name]: value.trim()
         }))
         }
 
         const formValidate = () =>{
-        const passData = Number(loginData.password)
-        const errors : FormatErrors = {}
-        if (!loginData.email){
+        const passData = Number(formData.password)
+        const errors : Partial<FormData> = {}
+
+        if (!formData.email){
             errors.email = "Email is required."
-        } else if (!/\S+@\S+\.\S+/.test(loginData.email)){
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)){
             errors.email = "Email format is incorrect."
         }
+        
         if (isNaN(passData)){
             errors.password = "Password must be only numbers."
         } else if (!passData){
             errors.password = "Password is required."
         }
+
         return errors
         }
 
+        const loginValidate = () =>{
+            const users: User[] = JSON.parse(localStorage.getItem('users') || '[]')
+            const userData = users.find(user => user.email === formData.email)
+            const userToken = userData?.token
+            
+            if(userData?.email === undefined){
+                setNoUser('User not found')
+                return
+            } else if(!(userData.password === formData.password)) {
+                setNoUser('Password does not match')
+                return
+            }
+            localStorage.setItem('authToken', JSON.stringify(userToken))
+            navigate('/dashboard')
+        }
     const handleSubmit = (event:FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -47,32 +64,23 @@ export default function LoginPage(){
             setFormatErrors(newFormErrors)
             return
         }
-
-        console.log('Login Data :', loginData)
-
         setFormatErrors({})
-
-        if(loginData.email === "admin@admin.com" && loginData.password === "123"){
-            localStorage.setItem("authToken", "ADM")
-            navigate('/dashboard')
-        } else if (localStorage.getItem("authToken") !== "ADM"){
-            setLoginData({email:'', password:''})
-            setNoUser('User not find.')
-        }
-
+        loginValidate()
+        
     }
     return (
         <>
-        <h1>Login</h1>
         <form className={styles.form} onSubmit={handleSubmit}>
-            <label>EMAIL</label>
-            <input type="text" name='email' value={loginData.email} onChange={handleChange}/>
-            <label>PASSWORD</label>
-            <input type="text" name='password'value={loginData.password} onChange={handleChange}/>
+            <h1>Login</h1>
+            <label htmlFor="email">EMAIL</label>
+            <input id="email"  type="text" name='email' value={formData.email} onChange={handleChange}/>
+            <label htmlFor='password'>PASSWORD</label>
+            <input id='password' type="text" name='password'value={formData.password} onChange={handleChange}/>
             <label className={styles.errors}>{formatErrors.email}<br/>{formatErrors.password}</label>
             <label>{noUser}</label>
             <button type='submit'>Login</button>
         </form>
+        <button className={styles.link}><Link to='/register'><h3>Register</h3></Link></button>
         </>
     )
 }
