@@ -5,16 +5,65 @@
     flex-direction: column;
     gap: 2vw;
     width: 50vw;
-    height: 40vw;
+}
+main{
+    margin-top: 10vw;
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.form{
+    display: flex;
+    flex-direction: row;
+    gap: 5vw;
 }
 
 button{
     all:unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     width:max-content;
-    padding: 1vw;
+    height: 1.5vw;
+    padding: 1.5vw;
     background-color: red;
     border: 0.5vw solid white;
     border-radius: 2vw;
+    margin-top: 4vw;
 
+}
+button > h3{
+    padding: 0;
+    margin: 0;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1vw;
+}
+
+input{
+    height: 2vw;
+    width: 20vw;
+    margin: 0;
+    padding-top: 0;
+}
+
+.error{
+    position: absolute;
+    padding: 0;
+    margin: 0;
+}
+
+h4{
+    color: red;
+    margin: 0;
+    padding: 0;
 }

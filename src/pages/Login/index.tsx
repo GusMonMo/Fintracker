@@ -13,6 +13,7 @@ export default function LoginPage(){
     const [formatErrors, setFormatErrors] = useState<Partial<FormData>>({})
     const [noUser, setNoUser] = useState<string>('')
     const navigate = useNavigate()
+    
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = event.target
         setFormData((prev) => ({
