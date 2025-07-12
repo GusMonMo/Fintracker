@@ -1,16 +1,28 @@
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
 .body{
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 1vw;
     justify-content: center;
     align-items: center;
     padding: 2vw;
     width: 50vw;
-    height: 60vw;
+    height: 75vh;
     border: 0.2vw solid white;
     border-radius: 3vw;
     background-color: rgb(72, 94, 119);
+    @include mobile {
+        height: 80vh;
+        width: 75vw;
+        justify-content: start;
+        gap: 3vh;
+    }
 }
 
 .form{
@@ -22,8 +34,13 @@
     width: 15vw;
     height: 10vw;
     gap: 1vw;
-    background-color: rgb(72, 94, 119);
     z-index: 3;
+    @include mobile {
+        height: 10vh;
+        width: 50vw;
+        justify-content: start;
+        gap: 1vh;
+    }
 }
 
 .formSection{
@@ -32,11 +49,18 @@
     justify-content: center;
     align-items: center;
     gap: 1.5vw;
-    width: 25vw;
-    height: 35vw;
+    width: 35vw;
+    height: 50vw;
     border: 0.2vw solid white;
     border-radius: 15%;
     box-shadow: 0vw 0vw 3vw 0.5vw rgb(96, 114, 134);
+    @include mobile {
+        justify-content: center;
+        border-radius: 25%;
+        height: 60vh;
+        width: 55vw;
+        gap: 8vh;
+    }
 }
 
 

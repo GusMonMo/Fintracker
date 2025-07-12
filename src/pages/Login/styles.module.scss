@@ -1,3 +1,9 @@
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
 .form{
     position: relative;
     display: flex;
@@ -10,9 +16,9 @@
     border: 0.2vw solid white;
     border-radius: 3vw;
     background-color: rgb(72, 94, 119);
-    z-index: 3;
-}
-
-.link{
-    all: unset;
+    @include mobile {
+        height: 80vh;
+        justify-content: start;
+        gap: 1vh;
+    }
 }

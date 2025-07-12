@@ -70,10 +70,12 @@ export default function Dashboard(){
 
     return(
         <>
+        <header>   
+                <h1>Dashboard</h1>
+                <h2>Hello {currentUser?.name}</h2>
+                <h2>Your email is: {currentUser?.email}</h2>
+        </header>
         <main className={styles.body}>
-            <h1>Dashboard</h1>
-            <h2>Hello {currentUser?.name}</h2>
-            <h2>Your email is: {currentUser?.email}</h2>
             <section className={styles.formSection}>
 
                 <form onSubmit={handleSubmit} className={styles.form}>
@@ -97,7 +99,9 @@ export default function Dashboard(){
                     <button className={styles.button} type="submit" name="password"><h3>Submit</h3></button>
                 </form>
             </section>
-            <button className={styles.button} onClick={handleLogout}><h3>Logout</h3></button>
+            <section className="actions">
+                <button onClick={handleLogout}><h3>Logout</h3></button>
+            </section>
         </main>
         </>
     )

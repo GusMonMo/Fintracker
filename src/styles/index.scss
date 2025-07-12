@@ -3,6 +3,13 @@
     padding: 0;
 }
 
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+
 body{
     display: flex;
     position: relative;
@@ -10,7 +17,19 @@ body{
     align-items: center;
     height: 100vh;
     flex-direction: row;
-    background-color: rgb(95, 91, 91);
+}
+
+header{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+    margin-bottom: 5vw;
+     @include mobile {
+        flex-direction: column;
+        gap: 1vh;
+    }
 }
 
 h1, h2, h3, h4, p{
@@ -18,9 +37,19 @@ h1, h2, h3, h4, p{
 }
 
 h1{
+    color: rgb(55, 0, 255);
     font-size: 3vw;
-    padding-bottom: 2vw;
     width:max-content;
+    @include mobile {
+        font-size: 3vh;
+    }
+}
+
+h2{
+    font-size: 2vw;
+    @include mobile {
+        font-size: 2vh;
+    }
 }
 
 h3{
@@ -31,10 +60,16 @@ h3{
     &:hover{
         color: red;
     }
+    @include mobile {
+        font-size: 2.5vh;
+    }
 }
 
 h4{
     font-size: 1.5vw;
+    @include mobile {
+        font-size: 2.5vh;
+    }
 }
 
 label{
@@ -54,6 +89,11 @@ input{
     &:focus{
         transform: scale(1.2);
     }
+    @include mobile {
+        width: 30vw;
+        height: 2.5vh;
+        border-radius: 2vh;
+    }
 }
 
 button{
@@ -72,6 +112,9 @@ button{
         padding: 0;
         margin: 0;
     }
+    @include mobile {
+        width: 15vw;
+    }
 }
 
 .fintracker{
@@ -84,6 +127,16 @@ button{
     width: 15vw;
     height: 15vw;
     border-radius: 50%;
+    @include mobile {
+        top: auto;
+        bottom: 5vh;
+        width: 20vw;
+        height: 20vw;
+    }
+}
+
+.actions{
+    display: flex;
 }
 
 .errors{
@@ -98,6 +151,9 @@ button{
     font-weight: 800;
     font-style: italic;
     font-size: 1.8vw;
+    @include mobile {
+        font-size: 1.5vh;
+    }
 }
 
 
@@ -107,6 +163,11 @@ button{
     align-items: center;
     justify-content:space-between;
     width: 30vw;
+
+    @include mobile {
+        flex-direction: column;
+        width: 50vw;
+    }
 }
 
 .effectContainer{
