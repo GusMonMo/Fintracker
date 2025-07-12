@@ -1,4 +1,4 @@
-import styles from './styles.module.scss'
+import styles from '../Login/styles.module.scss'
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import type { User } from '../../types/loginTypes'
 import { Link, useNavigate } from 'react-router-dom'
@@ -72,16 +72,26 @@ export default function LoginPage(){
     return (
         <>
         <form className={styles.form} onSubmit={handleSubmit}>
+            <div className='fintracker'/>
             <h1>Login</h1>
-            <label htmlFor="email">EMAIL</label>
-            <input id="email"  type="text" name='email' value={formData.email} onChange={handleChange}/>
-            <label htmlFor='password'>PASSWORD</label>
-            <input id='password' type="text" name='password'value={formData.password} onChange={handleChange}/>
-            <label className={styles.errors}>{formatErrors.email}<br/>{formatErrors.password}</label>
-            <label>{noUser}</label>
-            <button type='submit'>Login</button>
+            <div className='inputContainer'>
+                <label htmlFor="email"><h4>EMAIL</h4></label>
+                <input id="email"  type="text" name='email' value={formData.email} onChange={handleChange}/>
+            </div>
+            <div className='inputContainer'>
+                <label htmlFor='password'><h4>PASSWORD</h4></label>
+                <input id='password' type="text" name='password'value={formData.password} onChange={handleChange}/>
+            </div>
+            <div className='errors'>
+                <h5>{formatErrors.email}</h5>
+                <h5>{formatErrors.password}</h5>
+            </div>
+            <label className={styles.label}>{noUser}</label>
+            <div className='buttonContainer'>
+                <button><Link className={styles.link} to='/register'><h3>Register</h3></Link></button>
+                <button type='submit'><h3>Submit</h3></button>
+            </div>
         </form>
-        <button className={styles.link}><Link to='/register'><h3>Register</h3></Link></button>
         </>
     )
 }

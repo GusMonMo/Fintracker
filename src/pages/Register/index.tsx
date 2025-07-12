@@ -20,7 +20,7 @@ export default function RegisterPage(){
         const users : User[] = JSON.parse(localStorage.getItem('users') || '[]')
 
         if(formData.name.length < 3){
-            errors.name = "Name: Minimum of 3 letters is required."
+            errors.name = "Minimum of 3 letters is required for name."
         }
 
         if (!formData.email){
@@ -78,18 +78,30 @@ export default function RegisterPage(){
     return(
         <>
         <form className={styles.form} onSubmit={handleSubmit}>
+            <div className='fintracker'/>
             <h1>Register</h1>
-            <label htmlFor="name">NAME</label>
-            <input id="email"  type="text" name='name' value={formData.name} onChange={handleChange}/>
-            <label htmlFor="email">EMAIL</label>
-            <input id="email"  type="text" name='email' value={formData.email} onChange={handleChange}/>
-            <label htmlFor='password'>PASSWORD</label>
-            <input id='password' type="text" name='password'value={formData.password} onChange={handleChange}/>
-            <label className={styles.errors}>{error.name}<br/>{error.email}<br/>{error.password}</label>
-            <button type='submit'>Register</button>
+            <div className='inputContainer'>
+                <label htmlFor="name"><h4>NAME</h4></label>
+                <input id="email"  type="text" name='name' value={formData.name} onChange={handleChange}/>
+            </div>
+            <div className='inputContainer'>
+                <label htmlFor="email"><h4>EMAIL</h4></label>
+                <input id="email"  type="text" name='email' value={formData.email} onChange={handleChange}/>
+            </div>
+            <div className='inputContainer'>
+                <label htmlFor='password'><h4>PASSWORD</h4></label>
+                <input id='password' type="text" name='password'value={formData.password} onChange={handleChange}/>
+            </div>
+            <div className='errors'>
+                <h5>{error.name}</h5>
+                <h5>{error.email}</h5>
+                <h5>{error.password}</h5>
+            </div>
+            <div className='buttonContainer'>
+                <button><Link to='/login'><h3>Login</h3></Link></button>
+                <button type='submit'><h3>Submit</h3></button>
+            </div>
         </form>
-        <button className={styles.link}><Link to='/login'><h3>Login Page</h3></Link></button>
-        
         </>
     )
 }

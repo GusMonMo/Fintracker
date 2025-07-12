@@ -70,36 +70,34 @@ export default function Dashboard(){
 
     return(
         <>
-        <h1>Dashboard</h1>
-        <header className={styles.dashboard}>
+        <main className={styles.body}>
+            <h1>Dashboard</h1>
             <h2>Hello {currentUser?.name}</h2>
             <h2>Your email is: {currentUser?.email}</h2>
-        </header>
-        <main>
-            <section className={styles.form}>
+            <section className={styles.formSection}>
 
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="nameDash">Change Name</label>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <label htmlFor="nameDash"><h4>Change Name</h4></label>
                     <input id="nameDash" type="text" name="name" value={userData.name || ''} onChange={handleChange}/>
                     <label className={styles.error}><h4>{formError.name}</h4></label>
-                    <button type="submit" name="name" ><h3>Submit</h3></button>
+                    <button className={styles.button} type="submit" name="name"><h3>Submit</h3></button>
                 </form>
 
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="emailDash">Change Email</label>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <label htmlFor="emailDash"><h4>Change Email</h4></label>
                     <input id="emailDash" type="text" name="email" value={userData.email || ''} onChange={handleChange}/>
                     <label className={styles.error}><h4>{formError.email}</h4></label>
-                    <button type="submit" name="email" ><h3>Submit</h3></button>
+                    <button className={styles.button} type="submit" name="email"><h3>Submit</h3></button>
                 </form>
 
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="passwordDash">Change Password</label>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <label htmlFor="passwordDash"><h4>Change Password</h4></label>
                     <input id="passwordDash" type="text" name="password" value={userData.password || ''} onChange={handleChange}/>
                     <label className={styles.error}><h4>{formError.password}</h4></label>
-                    <button type="submit" name="password" ><h3>Submit</h3></button>
+                    <button className={styles.button} type="submit" name="password"><h3>Submit</h3></button>
                 </form>
             </section>
-            <button onClick={handleLogout}><h2>Logout</h2></button>
+            <button className={styles.button} onClick={handleLogout}><h3>Logout</h3></button>
         </main>
         </>
     )

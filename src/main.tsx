@@ -7,10 +7,11 @@ import Dashboard from './pages/Dashboard'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import PrivateRoute from './components/PrivateRoute'
 import LoggedVerify from './components/loggedVerify'
-
+import BubbleEffect from './components/backgroundEffect'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
+      <BubbleEffect/>
         <Routes>
           <Route path='/' element={<Navigate to='/login'/>}/>
           <Route path='/register' element={<RegisterPage/>}/>
