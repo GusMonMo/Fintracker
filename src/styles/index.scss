@@ -27,10 +27,33 @@ header{
     width: 100%;
     height: max-content;
     gap: 2vw;
-    padding: 5vw;
+    padding-bottom: 5vw;
+    padding-top: 3vw;
+    margin: 0;
      @include mobile {
         flex-direction: column;
         gap: 1vh;
+    }
+}
+
+main{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5vw;
+    width: 90vw;
+    height: 80vh;
+    border: 0.2vw solid white;
+    border-radius: 3vw;
+    background-color: rgb(72, 94, 119);
+    @include mobile {
+        flex-wrap: wrap;
+        height: 80vh;
+        width: 75vw;
+        gap: 3vh;
     }
 }
 
@@ -101,7 +124,8 @@ input{
 button{
     all: unset;
     display: flex;
-    width: 10vw;
+    width: max-content;
+    padding: 1vw;
     justify-content: center;
     align-items: center;
     transition: transform 0.2s ease;
@@ -209,7 +233,7 @@ button{
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.75);
     z-index: 5;
 }  
 

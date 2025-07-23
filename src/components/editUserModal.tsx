@@ -69,7 +69,7 @@ export default function EditUserModal({closeModal}: EditUserModalProps){
         exit={{ scale: 0.2, opacity: 0 }}
         transition={{duration: 0.2, ease: "easeInOut"}}
         >
-
+            <h1>Edit User</h1>
             <form onSubmit={handleSubmit} className={styles.form}>
                 <label htmlFor="nameDash"><h4>Change Name</h4></label>
                 <input id="nameDash" type="text" name="name" value={userData.name || ''} onChange={handleChange}/>

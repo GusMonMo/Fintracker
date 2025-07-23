@@ -3,36 +3,24 @@
     @content;
   }
 }
-
-main{
-    position: relative;
+.dashMain{
     display: flex;
-    flex-direction: row;
-    gap: 1vw;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    padding: 2vw;
-    width: 90vw;
-    height: 80vh;
-    border: 0.2vw solid white;
-    border-radius: 3vw;
-    background-color: rgb(72, 94, 119);
+    justify-content: start;
+    gap: 1vw;
     @include mobile {
-        flex-wrap: wrap;
-        height: 80vh;
-        width: 75vw;
-        gap: 3vh;
+        gap: 5vh;
     }
 }
-
 .form{
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 15vw;
-    height: 10vw;
+    width: max-content;
+    height: max-content;
     gap: 1vw;
     z-index: 3;
     @include mobile {
@@ -40,17 +28,25 @@ main{
         width: 75vw;
         gap: 1vh;
     }
+    & >span{
+        color: red;
+        font-size: 2vw;
+        @include mobile {
+            font-size: 2.5vw;
+        }
+    }
 }
 
-.formSection{
+.formSection, .insertTransactionSection{
     position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-    gap: 1.5vw;
-    width: 35vw;
-    height: 70vh;
+    padding-top: 10vw;
+    gap: 4vw;
+    width: 60vw;
+    height: 60vh;
     border: 0.2vw solid white;
     background-color: rgb(72, 94, 119);
     border-radius: 15%;
@@ -72,19 +68,20 @@ main{
 } 
 
 .dashGraph{
-    background-color: white;
+    background-color: rgb(145, 27, 27);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 35vw;
-    height: 70vh;
+    width: 40vw;
+    height: 40vw;
     border: 0.2vw solid white;
-    border-radius: 15%;
-    box-shadow: 0vw 0vw 3vw 0.5vw rgb(96, 114, 134);
+    margin-top: 2vw;
+    border-radius: 50%;
+    box-shadow: 0vw 1vw 3vw 0.1vw rgb(169, 196, 228);
     @include mobile {
-        height: 60vh;
-        width: 55vw;
+        height: 60vw;
+        width: 60vw;
     }
 }
 
@@ -93,7 +90,7 @@ main{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1vw;
+    gap: 3vw;
     width: 100%;
     height: 35vw;
 }
