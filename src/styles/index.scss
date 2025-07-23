@@ -125,7 +125,7 @@ button{
     all: unset;
     display: flex;
     width: max-content;
-    padding: 1vw;
+    padding: 0vw;
     justify-content: center;
     align-items: center;
     transition: transform 0.2s ease;
@@ -161,10 +161,6 @@ button{
         width: 20vw;
         height: 20vw;
     }
-}
-
-.actions{
-    display: flex;
 }
 
 .errors{

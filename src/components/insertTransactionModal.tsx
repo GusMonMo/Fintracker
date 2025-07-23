@@ -33,24 +33,31 @@ export default function InsertTransactionModal({closeModal}: InsertTransactionMo
             <h1>Insert Transaction</h1>
 
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-                <label><h2>Origem</h2></label>
-                <input {...register("descricao", { required: true })} />
-                {errors.descricao && <span>Campo obrigatório</span>}
+                
+                <section className={styles.formSubSection}>
+                    <label><h2>Origem</h2></label>
+                    <input {...register("descricao", { required: true })} />
+                    {errors.descricao && <span>Campo obrigatório</span>}
+                </section>
 
+                <section className={styles.formSubSection}>
                 <label><h2>Valor</h2></label>
                 <input type="text" {...register("valor", { 
                     required: true,  
                     validate: (value) =>
                         !isNaN(Number(value)),})} />
                 {errors.valor && <span>Campo obrigatório</span>}
+                </section>
 
-                <label><h2>Tipo</h2></label>
-                <select {...register("tipo", { required: true })}>
-                    <option value="">Selecione</option>
-                    <option value="entrada">Entrada</option>
-                    <option value="saida">Saída</option>
-                </select>
-                {errors.tipo && <span>Selecione o tipo</span>}
+                <section className={styles.formSubSection}>
+                    <label><h2>Tipo</h2></label>
+                    <select {...register("tipo", { required: true })}>
+                        <option value="">Selecione</option>
+                        <option value="entrada">Entrada</option>
+                        <option value="saida">Saída</option>
+                    </select>
+                    {errors.tipo && <span>Selecione o tipo</span>}
+                </section>
 
       <button type="submit"> <h3>Registrar Transação</h3></button>
     </form>

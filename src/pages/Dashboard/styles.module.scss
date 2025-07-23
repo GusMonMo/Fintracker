@@ -19,14 +19,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: max-content;
+    width: 75vw;
     height: max-content;
-    gap: 1vw;
     z-index: 3;
     @include mobile {
         height: 20vh;
         width: 75vw;
-        gap: 1vh;
     }
     & >span{
         color: red;
@@ -41,12 +39,13 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
-    padding-top: 10vw;
-    gap: 4vw;
+    padding-top: 0vw;
+    gap: 2vw;
     width: 60vw;
-    height: 60vh;
+    height: 75vh;
+    max-height: 75vh;
     border: 0.2vw solid white;
     background-color: rgb(72, 94, 119);
     border-radius: 15%;
@@ -55,9 +54,8 @@
     
     @include mobile {
         border-radius: 30%;
-        height: 75vh;
         width: 75vw;
-        gap: 1vh;
+        gap: 5vh;
     }
 }
 
