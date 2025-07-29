@@ -21,10 +21,6 @@ export default function Dashboard(){
 
     useEffect(() =>{
         if (!userToken) return;
-        const raw = localStorage.getItem("transactions");
-        if (!raw) return;
-        const allTransactions = JSON.parse(raw);
-        const doUsuario = Array.isArray(allTransactions[userToken]) ? allTransactions[userToken] : [];
         setCurrentUser(loggedUser)
     }, [])
 
