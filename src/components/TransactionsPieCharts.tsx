@@ -2,19 +2,13 @@ import {
     PieChart, 
     Pie, 
     Cell, 
-    Tooltip, 
     Legend, 
     ResponsiveContainer 
 } from "recharts";
 import styles from "../pages/Dashboard/styles.module.scss"
+import type { Transaction } from "../types/transactionTypes";
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
-type Transaction = {
-    origin: string;
-    value: string;
-    type: "entrada" | "saida";
-}
 
 type TransactionsPieChartsProps = {
     transactions: Transaction[]
@@ -50,7 +44,7 @@ export default function TransactionsPieCharts({transactions}: TransactionsPieCha
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                     </Pie>
-                    <Tooltip />
+                    
                     <Legend />
                 </PieChart>  
             </ResponsiveContainer>   

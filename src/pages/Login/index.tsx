@@ -53,7 +53,11 @@ export default function LoginPage(){
                 setNoUser('Password does not match')
                 return
             }
-            localStorage.setItem('authToken', JSON.stringify(userToken))
+            if(userToken){
+                localStorage.setItem('authToken', userToken)
+            } else {
+                console.error("Token not found.")
+            }
             navigate('/dashboard')
         }
     const handleSubmit = (event:FormEvent<HTMLFormElement>) => {

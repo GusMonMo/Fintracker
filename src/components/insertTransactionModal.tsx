@@ -1,51 +1,26 @@
 import { motion } from "framer-motion"
 import styles from "../pages/Dashboard/styles.module.scss"
 import { useForm } from "react-hook-form";
+import type { Transaction } from "../types/transactionTypes";
+import { useTransactions } from "../contexts/TransactionContext/TransactionContext";
 
-
-type TransactionForm = {
-  origin: string;
-  value: string;
-  type: "entrada" | "saida";
-};
 
 type InsertTransactionModalProps = {
     closeModal: () => void
 }
 
 export default function InsertTransactionModal({closeModal}: InsertTransactionModalProps){
-    const { register, handleSubmit, formState: { errors } } = useForm<TransactionForm>();
-    const userToken : string = JSON.parse(localStorage.getItem('authToken') || '[]')
+    const { register, handleSubmit, formState: { errors } } = useForm<Transaction>();
+    const userToken : string = localStorage.getItem('authToken') || ''
+    const {addTransaction} = useTransactions()
 
-    function onSubmit(data: TransactionForm) {
+    function onSubmit(data: Transaction) {
 
         if (!userToken){
             console.error("User not logged in")
             return
         }
-
-        const newTransaction = {
-            origin: data.origin,
-            value: data.value,
-            type: data.type
-        }
-
-        let allTransactions : Record<string, TransactionForm[]> = {}
-
-        try {
-            const raw = localStorage.getItem('transactions')
-            allTransactions = raw ? JSON.parse(raw) : {}
-        } catch (error) {
-            console.warn("No transactions found, creating new object")
-            allTransactions = {}
-        }
-
-        if(!Array.isArray(allTransactions[userToken])){
-            allTransactions[userToken] = []
-        }
-
-        allTransactions[userToken].push(newTransaction)
-        localStorage.setItem('transactions', JSON.stringify(allTransactions))
+        addTransaction(data)
         closeModal()
     }
 

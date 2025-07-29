@@ -9,7 +9,7 @@ type EditUserModalProps = {
 
 export default function EditUserModal({closeModal}: EditUserModalProps){
     const users: User[] = JSON.parse(localStorage.getItem('users') || '[]')
-    const userToken : string = JSON.parse(localStorage.getItem('authToken') || '[]')
+    const userToken : string = localStorage.getItem('authToken') || ''
     const [userData, setUserData] = useState<Partial<User>>({})
     const [formError, setFormError] = useState<Partial<User>>({})
 

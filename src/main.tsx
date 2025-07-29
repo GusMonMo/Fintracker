@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import PrivateRoute from './components/PrivateRoute'
 import LoggedVerify from './components/loggedVerify'
 import BubbleEffect from './components/backgroundEffect'
+import { TransactionProvider } from './contexts/TransactionContext/TransactionContext'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
@@ -22,7 +23,9 @@ createRoot(document.getElementById('root')!).render(
             }/>
           <Route path='/dashboard' element={
             <PrivateRoute>
-              <Dashboard/>
+              <TransactionProvider>
+                <Dashboard/>
+              </TransactionProvider>
             </PrivateRoute>}/>
         </Routes>
     </BrowserRouter>

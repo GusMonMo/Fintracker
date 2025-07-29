@@ -6,21 +6,18 @@ import EditUserModal from "../../components/editUserModal"
 import InsertTransactionModal from "../../components/insertTransactionModal"
 import { AnimatePresence } from "framer-motion"
 import TransactionsPieCharts from "../../components/TransactionsPieCharts"
+import { useTransactions } from "../../contexts/TransactionContext/TransactionContext"
 
-type Transaction = {
-    origin: string;
-    value: string;
-    type: "entrada" | "saida";
-}
 
 export default function Dashboard(){
     const navigate = useNavigate()
-    const userToken : string = JSON.parse(localStorage.getItem('authToken') || '[]')
+    const userToken : string = localStorage.getItem('authToken') || ''
     const [currentUser, setCurrentUser] = useState<User | null>(null)
     const users: User[] = JSON.parse(localStorage.getItem('users') || '[]')
     const loggedUser = users.find(user => user.token === userToken) || null
     const [activeModal, setActiveModal] = useState<"edit" | "transaction" | null>(null)
-    const [transactions, setTransactions] = useState<Transaction[]>([])
+
+    const {transactions} = useTransactions()
 
     useEffect(() =>{
         if (!userToken) return;
@@ -28,7 +25,6 @@ export default function Dashboard(){
         if (!raw) return;
         const allTransactions = JSON.parse(raw);
         const doUsuario = Array.isArray(allTransactions[userToken]) ? allTransactions[userToken] : [];
-        setTransactions(doUsuario);
         setCurrentUser(loggedUser)
     }, [])
 
@@ -46,8 +42,7 @@ export default function Dashboard(){
     }
 
     const handleShowTransactions = () => {
-        const transactions = JSON.parse(localStorage.getItem('transactions') || '[]')
-        console.log("transactions:", transactions[userToken] || [])
+        console.log("transactions:", transactions || [])
     }
 
     return(
