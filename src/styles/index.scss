@@ -45,13 +45,12 @@ main{
     align-items: center;
     margin-bottom: 5vw;
     width: 90vw;
-    height: 80vh;
+    height: max-content;
     border: 0.2vw solid white;
     border-radius: 3vw;
     background-color: rgb(72, 94, 119);
     @include mobile {
         flex-wrap: wrap;
-        height: 80vh;
         width: 75vw;
         gap: 3vh;
     }

@@ -5,6 +5,13 @@ import { useEffect, useState} from "react"
 import EditUserModal from "../../components/editUserModal"
 import InsertTransactionModal from "../../components/insertTransactionModal"
 import { AnimatePresence } from "framer-motion"
+import TransactionsPieCharts from "../../components/TransactionsPieCharts"
+
+type Transaction = {
+    origin: string;
+    value: string;
+    type: "entrada" | "saida";
+}
 
 export default function Dashboard(){
     const navigate = useNavigate()
@@ -13,8 +20,15 @@ export default function Dashboard(){
     const users: User[] = JSON.parse(localStorage.getItem('users') || '[]')
     const loggedUser = users.find(user => user.token === userToken) || null
     const [activeModal, setActiveModal] = useState<"edit" | "transaction" | null>(null)
-    
+    const [transactions, setTransactions] = useState<Transaction[]>([])
+
     useEffect(() =>{
+        if (!userToken) return;
+        const raw = localStorage.getItem("transactions");
+        if (!raw) return;
+        const allTransactions = JSON.parse(raw);
+        const doUsuario = Array.isArray(allTransactions[userToken]) ? allTransactions[userToken] : [];
+        setTransactions(doUsuario);
         setCurrentUser(loggedUser)
     }, [])
 
@@ -31,7 +45,10 @@ export default function Dashboard(){
         setActiveModal("transaction")
     }
 
-    
+    const handleShowTransactions = () => {
+        const transactions = JSON.parse(localStorage.getItem('transactions') || '[]')
+        console.log("transactions:", transactions[userToken] || [])
+    }
 
     return(
         <>  
@@ -51,14 +68,13 @@ export default function Dashboard(){
                 {activeModal === "transaction" && <InsertTransactionModal closeModal={() => setActiveModal(null)} />}
             </AnimatePresence>
 
-            <div className={styles.dashGraph}>
-                PizzaGraph
-            </div>
+            <TransactionsPieCharts transactions={transactions} />
             
             <section className={styles.actions}>
                 <button onClick={handleShowEditModal}><h3>Edit User</h3></button>
                 <button onClick={handleShowTransactionModal}><h3>Insert Transaction</h3></button>
                 <button onClick={handleLogout}><h3>Logout</h3></button>
+                <button onClick={handleShowTransactions}><h3>Show Transactions</h3></button>
             </section>
         </main>
         </>

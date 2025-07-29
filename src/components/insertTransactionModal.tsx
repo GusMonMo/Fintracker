@@ -3,10 +3,10 @@ import styles from "../pages/Dashboard/styles.module.scss"
 import { useForm } from "react-hook-form";
 
 
-type TransacaoForm = {
-  descricao: string;
-  valor: string;
-  tipo: "entrada" | "saida";
+type TransactionForm = {
+  origin: string;
+  value: string;
+  type: "entrada" | "saida";
 };
 
 type InsertTransactionModalProps = {
@@ -14,15 +14,40 @@ type InsertTransactionModalProps = {
 }
 
 export default function InsertTransactionModal({closeModal}: InsertTransactionModalProps){
-    const {
-        register,       // Registra os campos e conecta ao RHF
-        handleSubmit,   // Controla o envio do form
-        formState: { errors },  // Acessa os erros de validação
-      } = useForm<TransacaoForm>(); // Tipamos para ter autocomplete e validação automática
-    
-      function onSubmit(data: TransacaoForm) {
-        console.log("Dados enviados:", data);
-      }
+    const { register, handleSubmit, formState: { errors } } = useForm<TransactionForm>();
+    const userToken : string = JSON.parse(localStorage.getItem('authToken') || '[]')
+
+    function onSubmit(data: TransactionForm) {
+
+        if (!userToken){
+            console.error("User not logged in")
+            return
+        }
+
+        const newTransaction = {
+            origin: data.origin,
+            value: data.value,
+            type: data.type
+        }
+
+        let allTransactions : Record<string, TransactionForm[]> = {}
+
+        try {
+            const raw = localStorage.getItem('transactions')
+            allTransactions = raw ? JSON.parse(raw) : {}
+        } catch (error) {
+            console.warn("No transactions found, creating new object")
+            allTransactions = {}
+        }
+
+        if(!Array.isArray(allTransactions[userToken])){
+            allTransactions[userToken] = []
+        }
+
+        allTransactions[userToken].push(newTransaction)
+        localStorage.setItem('transactions', JSON.stringify(allTransactions))
+        closeModal()
+    }
 
     return(
         <motion.section className={styles.insertTransactionSection}
@@ -36,31 +61,33 @@ export default function InsertTransactionModal({closeModal}: InsertTransactionMo
                 
                 <section className={styles.formSubSection}>
                     <label><h2>Origem</h2></label>
-                    <input {...register("descricao", { required: true })} />
-                    {errors.descricao && <span>Campo obrigatório</span>}
+                    <input {...register("origin", { required: true })} />
+                    {errors.origin && <span>Campo obrigatório</span>}
                 </section>
 
                 <section className={styles.formSubSection}>
                 <label><h2>Valor</h2></label>
-                <input type="text" {...register("valor", { 
+                <input type="text" {...register("value", { 
                     required: true,  
                     validate: (value) =>
                         !isNaN(Number(value)),})} />
-                {errors.valor && <span>Campo obrigatório</span>}
+                {errors.value && <span>Campo obrigatório</span>}
                 </section>
 
                 <section className={styles.formSubSection}>
                     <label><h2>Tipo</h2></label>
-                    <select {...register("tipo", { required: true })}>
+                    <select {...register("type", { required: true })}>
                         <option value="">Selecione</option>
                         <option value="entrada">Entrada</option>
                         <option value="saida">Saída</option>
                     </select>
-                    {errors.tipo && <span>Selecione o tipo</span>}
+                    {errors.type && <span>Selecione o tipo</span>}
                 </section>
 
-      <button type="submit"> <h3>Registrar Transação</h3></button>
-    </form>
+                <button type="submit"> <h3>Registrar Transação</h3></button>
+                
+            </form>
+
             <button onClick={closeModal}><h3>Close</h3></button>
         </motion.section>
     )

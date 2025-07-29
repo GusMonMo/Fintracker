@@ -4,6 +4,7 @@
   }
 }
 .dashMain{
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,20 +12,23 @@
     gap: 1vw;
     @include mobile {
         gap: 5vh;
+        justify-content: center;
     }
 }
 .form{
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 75vw;
+    width: max-content;
     height: max-content;
     z-index: 3;
+    gap: 2vw;
     @include mobile {
-        height: 20vh;
+        flex-direction: column;
         width: 75vw;
+        gap: 2vh;
     }
     & >span{
         color: red;
@@ -38,24 +42,68 @@
 .formSection, .insertTransactionSection{
     position: absolute;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 0vw;
-    gap: 2vw;
-    width: 60vw;
-    height: 75vh;
-    max-height: 75vh;
     border: 0.2vw solid white;
     background-color: rgb(72, 94, 119);
     border-radius: 15%;
     box-shadow: 0vw 0vw 3vw 0.5vw rgb(96, 114, 134);
     z-index: 6;
+}
+
+.formSection{
+    flex-direction: column;
+    padding: 5vw;
+    gap: 2vw;
+    width: max-content;
+    height: max-content;
+    top: -5vw;
     
     @include mobile {
-        border-radius: 30%;
+        gap: 2vh;
+        top: -10vh;
+    }
+}
+
+.insertTransactionSection{
+    width: 60vw;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5vw;
+    gap: 5vw;
+    & > form{
+        flex-direction: column;
+        align-items: start;
+        align-self: start;
+    }
+
+    @include mobile {
         width: 75vw;
-        gap: 5vh;
+        gap: 3vh;
+        & > form{
+            align-items: center;
+            gap: 3vw;
+            
+        }
+    }
+}
+
+.formSubSection{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2vw;
+    & > span{
+        color: red;
+        font-size: 2vw;
+        @include mobile {
+            font-size: 2vh;
+        }
+    }
+    @include mobile {
+        flex-direction: column;
+        gap: 1vw;
     }
 }
 
@@ -65,21 +113,18 @@
     margin: 0;
 } 
 
-.dashGraph{
-    background-color: rgb(145, 27, 27);
+.pieChart{
+    margin: 0 auto;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: min(40vw, 30rem);
-    height: min(40vw, 30rem);
-    border: 0.2vw solid white;
-    margin-top: 2vw;
-    border-radius: 50%;
-    box-shadow: 0vw 1vw 3vw 0.1vw rgb(169, 196, 228);
+    position: relative;
+    width: 30vw;
+    max-width: 20rem;
+    height: 30vw;
     @include mobile {
-        height: 60vw;
         width: 60vw;
+        height: 60vw;
     }
 }
 
@@ -89,11 +134,13 @@
     align-items: center;
     justify-content: center;
     margin-top: 2vw;
+    margin-bottom: 2vw;
     gap: 3vw;
     width: 100%;
     height: max-content;
     @include mobile {
         flex-direction: column;
         margin-top: 3vh;
+        margin-bottom: 3vh;
     }
 }
