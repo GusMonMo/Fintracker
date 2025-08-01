@@ -119,8 +119,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    width: 30vw;
-    max-width: 30rem;
+    width: 60vw;
     height: 30vw;
     @include mobile {
         width: 60vw;
@@ -142,5 +141,15 @@
         flex-direction: column;
         margin-top: 3vh;
         margin-bottom: 3vh;
+    }
+}
+
+.transactionItem{
+    display: flex;
+    gap: 4vw;
+    @include mobile {
+        flex-direction: column;
+        gap: 0;
+        padding: 2vw;
     }
 }

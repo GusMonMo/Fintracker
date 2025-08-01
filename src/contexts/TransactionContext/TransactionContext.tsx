@@ -5,6 +5,7 @@ import type { Transaction } from "../../types/transactionTypes";
 interface TransactionContextType {
     transactions: Transaction[]
     addTransaction: (newest : Transaction) => void
+    removeTransaction: (item : Transaction) => void
 }
 const transactionContext = createContext<TransactionContextType | null>(null)
 
@@ -28,8 +29,24 @@ export const TransactionProvider = ({children}: {children:React.ReactNode}) => {
         setTransactions(updated)
     }
 
+    const removeTransaction = (item: Transaction) => {
+        const rawData = localStorage.getItem("transactions");
+        if (!rawData) return;
+        const data = JSON.parse(rawData)
+        const userTransactions : Transaction[] = data[authToken] || []
+        const updatedTransactions = userTransactions.filter((t) =>
+        !(t.origin === item.origin && t.value === item.value && t.type === item.type)
+        );
+        const newData = {
+            ...data,
+            [authToken]: updatedTransactions,
+        };
+        localStorage.setItem("transactions", JSON.stringify(newData));
+        setTransactions(updatedTransactions)
+    }
+
     return(
-        <transactionContext.Provider value={{transactions, addTransaction}}>
+        <transactionContext.Provider value={{transactions, addTransaction, removeTransaction}}>
             {children}
         </transactionContext.Provider>
     )

@@ -4,6 +4,7 @@ import type { User } from "../../types/loginTypes"
 import { useEffect, useState} from "react"
 import EditUserModal from "../../components/editUserModal"
 import InsertTransactionModal from "../../components/insertTransactionModal"
+import ShowTransactionModal from "../../components/showTransactionsModal"
 import { AnimatePresence } from "framer-motion"
 import TransactionsPieCharts from "../../components/TransactionsPieCharts"
 import { useTransactions } from "../../contexts/TransactionContext/TransactionContext"
@@ -15,7 +16,7 @@ export default function Dashboard(){
     const [currentUser, setCurrentUser] = useState<User | null>(null)
     const users: User[] = JSON.parse(localStorage.getItem('users') || '[]')
     const loggedUser = users.find(user => user.token === userToken) || null
-    const [activeModal, setActiveModal] = useState<"edit" | "transaction" | null>(null)
+    const [activeModal, setActiveModal] = useState<"edit" | "InsertTransaction" | "showTransaction" | null>(null)
 
     const {transactions} = useTransactions()
 
@@ -29,17 +30,10 @@ export default function Dashboard(){
         navigate('/login')
     }
 
-    const handleShowEditModal = () => {
-        setActiveModal("edit")
-    }
-
-    const handleShowTransactionModal = () => {
-        setActiveModal("transaction")
-    }
-
-    const handleShowTransactions = () => {
-        console.log("transactions:", transactions || [])
-    }
+    const handleShowModal = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const modalType = event.currentTarget.dataset.modal as "edit" | "InsertTransaction" | "showTransaction";
+    setActiveModal(modalType);
+};
 
     return(
         <>  
@@ -56,16 +50,20 @@ export default function Dashboard(){
             </AnimatePresence>
 
             <AnimatePresence>
-                {activeModal === "transaction" && <InsertTransactionModal closeModal={() => setActiveModal(null)} />}
+                {activeModal === "InsertTransaction" && <InsertTransactionModal closeModal={() => setActiveModal(null)} />}
+            </AnimatePresence>
+
+            <AnimatePresence>
+                {activeModal === "showTransaction" && <ShowTransactionModal closeModal={() => setActiveModal(null)} />}
             </AnimatePresence>
 
             <TransactionsPieCharts transactions={transactions} />
             
             <section className={styles.actions}>
-                <button onClick={handleShowEditModal}><h3>Edit User</h3></button>
-                <button onClick={handleShowTransactionModal}><h3>Insert Transaction</h3></button>
+                <button data-modal="edit" onClick={handleShowModal}><h3>Edit User</h3></button>
+                <button data-modal="InsertTransaction" onClick={handleShowModal}><h3>Insert Transaction</h3></button>
+                <button data-modal="showTransaction" onClick={handleShowModal}><h3>Show Transactions</h3></button>
                 <button onClick={handleLogout}><h3>Logout</h3></button>
-                <button onClick={handleShowTransactions}><h3>Show Transactions</h3></button>
             </section>
         </main>
         </>
