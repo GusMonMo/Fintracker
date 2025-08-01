@@ -24,7 +24,7 @@ export default function ShowTransactionModal({closeModal}: CloseModal){
                             <div key={index} className={styles.transactionItem}>
                                 <h4>Origem:{transaction.origin}</h4>
                                 <h4>Valor: R$ {Number(transaction.value).toFixed(2)}</h4>
-                                <h4>Tipo: {transaction.type === 'entrada' ? 'Entrada' : 'Saída'}</h4>
+                                <h4>Tipo: {transaction.type === 'entry' ? 'entry' : 'exit'}</h4>
                                 <button onClick={() => removeTransaction(transaction)}><h3>Remove</h3></button>
                             </div>
                         ))
