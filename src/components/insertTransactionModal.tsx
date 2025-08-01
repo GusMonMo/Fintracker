@@ -53,8 +53,8 @@ export default function InsertTransactionModal({closeModal}: InsertTransactionMo
                     <label><h2>Tipo</h2></label>
                     <select {...register("type", { required: true })}>
                         <option value="">Selecione</option>
-                        <option value="entrada">Entrada</option>
-                        <option value="saida">Saída</option>
+                        <option value="entry">Entrada</option>
+                        <option value="exit">Saída</option>
                     </select>
                     {errors.type && <span>Selecione o tipo</span>}
                 </section>

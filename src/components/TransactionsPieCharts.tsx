@@ -12,10 +12,10 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 type TransactionsPieChartsProps = {
     transactions: Transaction[]
 }
-
 export default function TransactionsPieCharts({transactions}: TransactionsPieChartsProps){
+
     const resume = transactions.reduce<{ entry: number, exit: number}>((acc, transaction) => {
-        if (transaction.type === "entrada"){
+        if (transaction.type === "entry"){
             acc.entry += Number(transaction.value)
         } else {
             acc.exit += Number(transaction.value)
@@ -24,8 +24,8 @@ export default function TransactionsPieCharts({transactions}: TransactionsPieCha
     }, { entry: 0, exit: 0 })
 
     const entriesData = [
-        { name: "Entrada", value: resume.entry },
-        { name: "Saída", value: resume.exit }
+        { name: "Entry", value: resume.entry },
+        { name: "Exit", value: resume.exit }
     ]
 
     const originsMap = new Map<string, number>();
